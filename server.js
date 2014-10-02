@@ -24,9 +24,9 @@ var config = require('./config/config');
 
 
 // DB: Load Schemas
-var userSchema = require('/public/db/user.js');
-var movieSchema = require('/public/db/movie.js');
-var orderSchema = require('/public/db/order.js');
+var userSchema = require('./public/db/user.js');
+var movieSchema = require('./public/db/movie.js');
+var orderSchema = require('./public/db/order.js');
 // DB: Compile Models
 var User = mongoose.model('User', userSchema);
 var Movie = mongoose.model('Movie', movieSchema);
