@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+    <head>
+        <base href="/">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>WannaMovie</title>
+        <link rel="icon" type="image/png" href="favicon.png"/>
+        <link href="stylesheets/style.css" rel="stylesheet">
+        <link href="javascript/lib/jquery-rateit/rateit.css" rel="stylesheet">
+    </head>
+    <body>
+        <div ng-controller="NavbarCtrl" class="navbar navbar-default 
+             navbar-static-top" role="navigation" bs-navbar>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    <span class="glyphicon glyphicon-film"></span>
+                    Wanna<strong>Movie</strong></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li data-match-route="/$"><a href="/"><span class="navbar-menu-icon glyphicon glyphicon-home"></span>Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav pull-right" ng-if="!currentUser">
+                <li data-match-route="/login"><a href="/login"><span class="navbar-menu-icon glyphicon glyphicon-off"></span>Login</a></li>
+                <li data-match-route="/signup"><a href="/signup"><span class="navbar-menu-icon glyphicon glyphicon-registration-mark"></span>Sign up</a></li>
+            </ul>
+            <ul class="nav navbar-nav pull-right" ng-if="currentUser">
+                <li class="navbar-text" ng-bind="currentUser.email"></li>
+                <li data-match-route="/login"><a href="/basket"><span class="navbar-menu-icon glyphicon glyphicon-shopping-cart"></span>Basket</a></li>
+                <li data-match-route="/login"><a href="/account"><span class="navbar-menu-icon glyphicon glyphicon-user"></span>Account</a></li>            
+                <li><a href="javascript:void(0);" ng-click="logout()"><span class="navbar-menu-icon glyphicon glyphicon-off"></span>Logout</a></li>
+            </ul>
+        </div>        
+
+
+        <div ng-view class="{{pageClass}}"></div>        
+        
+        <script src="vendor/angular.js"></script>
+        <script src="vendor/angular-strap.js"></script>
+        <script src="vendor/angular-strap.tpl.js"></script>
+        <script src="vendor/angular-messages.js"></script>
+        <script src="vendor/angular-resource.js"></script>
+        <script src="vendor/angular-route.js"></script>
+        <script src="vendor/angular-cookies.js"></script>
+        <script src="vendor/moment.min.js"></script>
+        
+        <script src="javascript/lib/jquery/jquery.min.js"></script>
+        
+        <script src="javascript/shoppingcart.js"></script> 
+        <script src="javascript/cartitem.js"></script> 
+        
+        <script src="vendor/ng-infinite-scroll.js"></script>
+
+        <script src="app.js"></script>
+        <script src="config.js"></script>
+                
+        <script src="controllers/main.js"></script>
+        <script src="controllers/navbar.js"></script>
+        <script src="controllers/login.js"></script>
+        <script src="controllers/signup.js"></script>
+
+        <script src="services/auth.js"></script>
+        <script src="services/movie.js"></script>        
+        <script src="services/cart.js"></script> 
+              
+    </body>
+</html>
