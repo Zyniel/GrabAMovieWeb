@@ -1,0 +1,13 @@
+#################
+## Eclipse
+#################
+logs/*
+!.gitkeep
+node_modules/
+bower_components/
+downloads/
+tmp/
+.DS_Store
+.idea
+public/images/posters/*.*
+public/images/posters/.actors/*.*

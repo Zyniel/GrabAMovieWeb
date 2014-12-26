@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var bcrypt = require('bcryptjs');
 var async = require('async');
 var request = require('request');
 var url = require('url');
@@ -24,14 +23,15 @@ var config = require('./config/config');
 
 
 // DB: Load Schemas
-var userSchema = require('./public/db/user.js');
-var movieSchema = require('./public/db/movie.js');
-var orderSchema = require('./public/db/order.js');
+var userSchema = require('./public/db/user');
+var movieSchema = require('./public/db/movie');
+var orderSchema = require('./public/db/order');
 // DB: Compile Models
-var User = mongoose.model('User', userSchema);
-var Movie = mongoose.model('Movie', movieSchema);
-// var Cart = mongoose.model('Cart', cartSchema);
-var Order = mongoose.model('Order', orderSchema);
+
+var User = mongoose.model('User');
+var Movie = mongoose.model('Movie');
+// var Cart = mongoose.model('Cart');
+var Order = mongoose.model('Order');
 // Connect to DB
 mongoose.connect(config.mongodb.hostname);
 
@@ -98,7 +98,12 @@ app.get('/api/movies', function(req, res, next) {
     if (req.query.genre) {
         query.where({genre: req.query.genre});
     } else if (req.query.alphabet) {
-        query.where({title: new RegExp('^' + '[' + req.query.alphabet + ']', 'i')});
+		if (req.query.alphabet && req.query.alphabet === '#') {
+			query.where({title: new RegExp('^' + '[^a-zA-Z0-9]', 'i')});
+		}
+		else {
+			query.where({title: new RegExp('^' + '[' + req.query.alphabet + ']', 'i')});
+		}
     } else {
         query.limit(12);
     }
@@ -116,6 +121,31 @@ app.get('/api/movies/:id', function(req, res, next) {
         res.send(movie);
     });
 });
+
+app.get('/api/library/genres', function(req, res, next) {
+	Movie.find().distinct('genre', function(err, ids) {
+        if (err)
+            return next(err);
+		if (ids)
+			ids = ids.sort(); 
+        res.send(ids);
+	});
+});	
+
+app.get('/api/library/alphabet', function(req, res, next) {
+
+	Movie.aggregate(
+		{ $group: {_id: {$substr: ["$title", 0, 1]}}}
+	  , { $project: { _id: 1 }}
+	  , { $sort : {_id : 1}}
+	  , function (err, alpha) {
+			if (err)
+				return next(err);
+			console.log(alpha);
+			res.send(alpha);
+		}
+	);
+});	
 
 app.get('/api/loaddb', function(req, res, next) {
     // Load from config file
@@ -177,14 +207,18 @@ app.get('/api/loaddb', function(req, res, next) {
             console.log(".Storing data into MongoDB ...");
             async.forEach(movies, function(mov) {
                 // Compute Thumbnail Path
-                var tbn = path.normalize(mov.file);
+                var tbn = path.normalize(mov.file);			
                 tbn = tbn.substring(tbn.lastIndexOf(path.sep) + 1, tbn.lastIndexOf("."));
                 var minitbn = tbn + "-mini.jpg";
                 tbn = tbn + "-poster.jpg";
+				
+				console.log(mov.genre);	
+				// Clean falsy values
+				mov.genre = _.compact(mov.genre);
+				console.log(mov.genre);
 
                 // Generate Movie Object
                 var movie = new Movie({
-                    _id: path.normalize(mov.file),
                     title: mov.title,
                     originaltitle: mov.originaltitle,
                     sorttitle: mov.sorttitle,
@@ -238,16 +272,16 @@ app.get('/api/loaddb', function(req, res, next) {
                     nbcb++;
                     if (err) {
                         if (err.code == 11000) {
-                            console.log("...Skipping " + movie.title + ': Movie exists.');
+                            console.log("...Skipping " + mov.title + ': Movie exists.');
                         } else {
                             return next(err);
                         }
                     } else {
-                        console.log('...' + movie.title);
+                        console.log('...' + mov.title);
                     }
                     if (nbcb === nbmovies) {
                         callback(null, nbmovies);
-                    }
+					}
                 });
             });
         }

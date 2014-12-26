@@ -27,7 +27,7 @@
                     <div class="movie-wrapper" ng-dblclick="addToCart(movie)">
                         <img class="img-thumbnail" ng-src="{{cfg.posters + movie.miniature}}" width="100%"/>
                         <div class="text-center">
-                            <a href="/movies/{{movie._id}}">{{movie.title}}</a>
+                            <a href="/movies/{{movie._id.toString()}}">{{movie.title}}</a>
                             <span class="img-thumbnail glyphicon glyphicon-shopping-cart"/>
                         </div>
                     </div>

@@ -1,11 +1,11 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var Schema = mongoose.Schema,
+    ObjectId = mongoose.Types.ObjectId;
 
 var movieSchema = new Schema({
-    _id: String,
     title: String,
     originaltitle: String,
-    sorttitle: String,
+    sorttitle: String,	
     genre: [String],
     year: String,
     rating: Number,
@@ -39,7 +39,7 @@ var movieSchema = new Schema({
                 width: Number
             }]
     },
-    file: String,
+    file: { type: String, required : true, unique: true },
     normalizedfile: String,
     thumbnail: String,
     miniature: String,
@@ -51,3 +51,4 @@ var movieSchema = new Schema({
     trailer: String
 });
 
+mongoose.model('Movie', movieSchema);

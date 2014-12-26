@@ -40,3 +40,5 @@ orderSchema.pre('save', function(next) {
      */
     next();
 });
+
+mongoose.model('Order', orderSchema);
