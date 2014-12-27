@@ -48,11 +48,11 @@ ShoppingCart.prototype.saveItems = function() {
 
 // adds an item to the cart
 ShoppingCart.prototype.addItem = function(item) {
-    if (item instanceof ShoppingCart) {
+    if (item instanceof CartItem) {
         // update quantity for existing item
         var found = false;
         for (var i = 0, len = this.items.length; i < len && !found; i++) {
-            if (this.items[i].id === id) {
+            if (this.items[i].id === item.id) {
                 found = true;
             }
         }
@@ -60,18 +60,21 @@ ShoppingCart.prototype.addItem = function(item) {
         // new item, add now
         if (!found) {
             this.items.push(item);
+            console.log("Item added to the cart: " + item.name);
 
             // save changes
             this.saveItems();
+        } else {
+            console.warn("Could not add item to cart: Item already exists: " + item.name);
         }
     }
 };
 
 ShoppingCart.removeItem = function(item) {
-    if (item instanceof ShoppingCart) {
+    if (item instanceof CartItem) {
         var found = false;
         for (var i = this.items.length - 1; i >= 0; i--) {
-            if (this.items[i] === item) {
+            if (this.items[i].id === item.id) {
                 this.items.splice(i, 1);
                 found = true;
             }
@@ -79,7 +82,10 @@ ShoppingCart.removeItem = function(item) {
 
         // save changes
         if (found) {
+            console.log("Removed item from cart: " + item.name);
             this.saveItems();
+        } else {
+            console.warn("Could not remove item from cart.");
         }
     }
 };

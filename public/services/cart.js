@@ -6,14 +6,22 @@ angular.module('MyApp')
             return ($rootScope.currentUser) ? $rootScope.currentUser.email : "anonymous";
         };
         
-        cartReturn.addItem = function(id, name) {
-            var item = new CartItem(id, name);
-            _cart.addItem(item);
+        cartReturn.addItem = function(item) {
+            if (item instanceof CartItem) {
+                //var item = new CartItem(id, name);
+                _cart.addItem(item);
+            } else {
+                console.error("Could not add item.");
+            }
         };
         
-        cartReturn.removeItem = function(id, name) {
-            var item = new CartItem(id, name);
-            _cart.removeItem(item);
+        cartReturn.removeItem = function(item) {
+            if (item instanceof CartItem) {
+                //var item = new CartItem(id, name);
+                _cart.removeItem(item);
+            } else {
+                console.error("Could not remove item.");
+            }
         };
         
         cartReturn.clearItems = function() {
@@ -29,7 +37,15 @@ angular.module('MyApp')
             _cart.name = this.currentUser();
             _cart.loadItems();
         };
-
+        
+        cartReturn.isEmpty = function () {
+            return !(_cart.items.length > 0);
+        };
+        
+        cartReturn.getCount = function () {
+            return _cart.items.length;
+        };
+        
         var cartName = cartReturn.currentUser();
         var _cart = new ShoppingCart(cartName);
 

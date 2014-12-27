@@ -94,6 +94,12 @@ em {
   border-bottom: 1px solid #dae2e4;
 }
 
+.jumbotron-filters {
+    margin-top: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
 .media-object {
   max-height: 250px;
   min-height: 250px;
@@ -205,6 +211,27 @@ em {
 
 .navbar-menu-icon {
 	padding-right: 5px;
+}
+
+.view-under-fixed-navbar {
+        padding-top: 50px;
+}
+
+.shopping-cart-empty {
+    color: "";
+}
+
+.shopping-cart-hasitems {
+    color: green;
+}
+
+.navbar-shopping-cart {
+    float:left;
+}
+
+.navbar-shopping-cart-itemcount {
+    font-size: 14px;
+    font-color: orange;
 }
 
 .navbar-brand {
