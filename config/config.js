@@ -3,8 +3,7 @@
  */
 var config = {
 	app: {
-		'port': 3000,
-		'posters': "images/posters"
+		'port': 3000
 	},
     // default clip configuration
     mongodb: {

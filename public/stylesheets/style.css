@@ -4610,16 +4610,14 @@ em {
   border-bottom: 1px solid #dae2e4; }
 
 .jumbotron-filters {
-  margin-top: 0px;
-  padding-top: 0px;
+  margin-top: -15px;
+  padding-top: 4px;
   padding-bottom: 0px; }
 
-.media-object {
-  max-height: 250px;
-  min-height: 250px;
-  max-width: 167;
-  min-width: 167;
-  margin-bottom: 10px; }
+.jumbotron-with-container {
+  margin-top: 0px;
+  padding-top: 10px;
+  padding-bottom: 0px; }
 
 .episode {
   border-left: 5px solid #111;
@@ -4706,6 +4704,8 @@ em {
 
 .view-under-fixed-navbar {
   padding-top: 50px; }
+  .view-under-fixed-navbar .container {
+    margin-top: 18px; }
 
 .shopping-cart-empty {
   color: ""; }
@@ -4751,3 +4751,6 @@ em {
 @media (min-width: 768px) {
   .movie-wrapper {
     min-height: 300px; } }
+
+.movie-in-cart {
+  background-color: green; }

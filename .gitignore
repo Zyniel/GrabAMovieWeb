@@ -9,5 +9,6 @@ downloads/
 tmp/
 .DS_Store
 .idea
-public/images/posters/*.*
-public/images/posters/.actors/*.*
+public/images/minis/
+public/images/tinies/
+public/images/posters/

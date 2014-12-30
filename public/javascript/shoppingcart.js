@@ -70,7 +70,7 @@ ShoppingCart.prototype.addItem = function(item) {
     }
 };
 
-ShoppingCart.removeItem = function(item) {
+ShoppingCart.prototype.removeItem = function(item) {
     if (item instanceof CartItem) {
         var found = false;
         for (var i = this.items.length - 1; i >= 0; i--) {
@@ -91,12 +91,16 @@ ShoppingCart.removeItem = function(item) {
 };
 
 
-ShoppingCart.clearItems = function() {
+ShoppingCart.prototype.clearItems = function() {
     this.items = [];
 
     // save changes
     this.saveItems();
 };
 
-ShoppingCart.checkout = function(checkoutService) {
+ShoppingCart.prototype.checkout = function(checkoutService) {
+};
+
+ShoppingCart.prototype.contains = function (item) {
+  return this.items.map(function(e) { return e.id; }).indexOf(item.id) >= 0;
 };

@@ -7,8 +7,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>WannaMovie</title>
         <link rel="icon" type="image/png" href="favicon.png"/>
-        <link href="stylesheets/style.css" rel="stylesheet">
-        <link href="javascript/lib/jquery-rateit/rateit.css" rel="stylesheet">
+        <link href="stylesheets/style.css" rel="stylesheet"/>
+        <link href="javascript/lib/kartik-star-rating/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div ng-controller="NavbarCtrl" class="navbar navbar-default navbar-fixed-top" role="navigation" bs-navbar>
@@ -29,7 +29,7 @@
                 <li data-match-route="/cart">
                     <a href="/cart">                        
                         <span class="navbar-menu-icon glyphicon glyphicon-shopping-cart navbar-shopping-cart" ng-class="{'shopping-cart-hasitems' : cart.getCount() > 0}"></span>
-                        Cart <span ng-show="cart.getCount() > 0" class="navbar-shopping-cart-itemcount">({{cart.getCount()}})</span>
+                        Cart <span class="badge">{{cart.getCount()}}</span>
                     </a>
                 </li>
                 <li data-match-route="/account"><a href="/account"><span class="navbar-menu-icon glyphicon glyphicon-user"></span>Account</a></li>            
@@ -50,6 +50,7 @@
         <script src="vendor/moment.min.js"></script>
         
         <script src="javascript/lib/jquery/jquery.min.js"></script>
+        <script src="javascript/lib/kartik-star-rating/js/star-rating.min.js" type="text/javascript"></script>
         
         <script src="javascript/shoppingcart.js"></script> 
         <script src="javascript/cartitem.js"></script> 
@@ -58,17 +59,22 @@
 
         <script src="app.js"></script>
         <script src="config.js"></script>
-                
+             
+        <script src="directives/star-rating.js"></script>
+        
         <script src="controllers/main.js"></script>
         <script src="controllers/navbar.js"></script>
         <script src="controllers/login.js"></script>
         <script src="controllers/signup.js"></script>
         <script src="controllers/cart.js"></script>
+        <script src="controllers/account.js"></script>
 
         <script src="services/auth.js"></script>
         <script src="services/movie.js"></script>        
         <script src="services/cart.js"></script> 
         <script src="services/library.js"></script>
+        
+        <!-- <script type="text/javascript" src="javascript/page_cart.js"></script> -->
               
     </body>
 </html>

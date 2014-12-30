@@ -46,6 +46,17 @@ angular.module('MyApp')
             return _cart.items.length;
         };
         
+        cartReturn.contains = function(item) {
+            if (item instanceof CartItem) {
+                return _cart.contains(item);
+            }
+            return false;
+       }
+       
+       cartReturn.items = function () {
+         return _cart.items; 
+       };
+        
         var cartName = cartReturn.currentUser();
         var _cart = new ShoppingCart(cartName);
 

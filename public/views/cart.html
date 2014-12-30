@@ -1,5 +1,45 @@
 <div class="container">
-    <div class="row">
-        
+    <script type="text/javascript">
+        $(document.body).on('change', '#cart input.rating' ,function() { 
+            $(this).rating('refresh', 
+                {disabled: true, 
+                 showClear: false, 
+                 showCaption: false, 
+                 size : "xs", 
+                 step : 0.1, 
+                 min: 0,
+                 max: 10,
+                 stars: 5,
+                 readonly: true
+                }
+            );           
+        });
+    </script>        
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Selected Movies
+        </div>
+        <div class="panel-body">
+            <div id="cart" class="row cart-list">
+                <div ng-show="cart.isEmpty()" class="cart-empty-msg">
+                    Your cart is currently empty. Choose some movies before placing your order.
+                </div>
+                <div ng-show="!cart.isEmpty()" class="panel panel-default" ng-repeat="movie in movies | filter:query | orderBy:'name'">
+                    <div class="panel-body">
+                        <div class="media">
+                            <a class="pull-left" href="#">
+                                <img class="media-object" ng-src="{{movie.getTinyImg()}}" alt="...">
+                            </a>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{movie.title}}</h4>
+                                <span>{{movie.year}}</span>
+                                <input id="input-id-{{movie._id}}" class="rating" value="{{movie.rating}}" starrating />
+                                <p>{{movie.plot}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
     </div>
-</div
+</div>

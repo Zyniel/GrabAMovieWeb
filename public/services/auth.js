@@ -58,6 +58,7 @@ angular.module('MyApp')
           return $http.get('/api/logout').success(function() {
             $rootScope.currentUser = null;
             $cookieStore.remove('user');
+            Cart.clearItems();
             Cart.loadItems();
             
             $alert({

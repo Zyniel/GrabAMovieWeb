@@ -21,7 +21,6 @@ var LocalStrategy = require('passport-local').Strategy;
 // Fichiers de configuration
 var config = require('./config/config');
 
-
 // DB: Load Schemas
 var userSchema = require('./public/db/user');
 var movieSchema = require('./public/db/movie');
@@ -133,7 +132,6 @@ app.get('/api/library/genres', function(req, res, next) {
 });	
 
 app.get('/api/library/alphabet', function(req, res, next) {
-
 	Movie.aggregate(
 		{ $group: {_id: {$substr: ["$title", 0, 1]}}}
 	  , { $project: { _id: 1 }}
@@ -207,15 +205,11 @@ app.get('/api/loaddb', function(req, res, next) {
             console.log(".Storing data into MongoDB ...");
             async.forEach(movies, function(mov) {
                 // Compute Thumbnail Path
-                var tbn = path.normalize(mov.file);			
-                tbn = tbn.substring(tbn.lastIndexOf(path.sep) + 1, tbn.lastIndexOf("."));
-                var minitbn = tbn + "-mini.jpg";
-                tbn = tbn + "-poster.jpg";
+                var imgNoExt = path.normalize(mov.file);			
+                imgNoExt = imgNoExt.substring(imgNoExt.lastIndexOf(path.sep) + 1, imgNoExt.lastIndexOf("."));
 				
-				console.log(mov.genre);	
-				// Clean falsy values
-				mov.genre = _.compact(mov.genre);
-				console.log(mov.genre);
+                // Clean falsy values
+                mov.genre = _.compact(mov.genre);
 
                 // Generate Movie Object
                 var movie = new Movie({
@@ -257,8 +251,7 @@ app.get('/api/loaddb', function(req, res, next) {
                     },
                     file: mov.file,
                     normalizedfile: path.normalize(mov.file),
-                    thumbnail: tbn,
-                    miniature: minitbn,
+                    imagenoext: imgNoExt,
                     tag: mov.tag,
                     tagline: mov.tagline,
                     plot: mov.plot,
@@ -369,3 +362,5 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
+module.exports = config;
+
