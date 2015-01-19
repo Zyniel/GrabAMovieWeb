@@ -1,7 +1,14 @@
 angular.module('MyApp')
-  .controller('CartCtrl', ['$scope', 'Cart', 'Movie', function($scope, Cart, MovieService) {
+  .controller('CartCtrl', ['$scope', 'Cart', 'Movie','cfg', function($scope, Cart, MovieService, cfg) {
     
     $scope.cart = Cart;
+    $scope.cfg = cfg;
+    $scope.getFormattedtRtg = function(rating) {
+        return rating.toPrecision(2);
+    };
+    $scope.getFormattedtMaxRtg = function() {
+        return cfg.star_rating.max;
+    };    
     
     // Get Movies Information
     var items = Cart.items();
@@ -19,8 +26,7 @@ angular.module('MyApp')
         }
         catch (e) {
            console.error("Error fetching movie data:" + e.toString());
-        }
-        
-        $scope.movies = movies;
+        } 
     }
+    $scope.movies = movies;
   }]);

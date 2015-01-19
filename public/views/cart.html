@@ -1,20 +1,4 @@
-<div class="container">
-    <script type="text/javascript">
-        $(document.body).on('change', '#cart input.rating' ,function() { 
-            $(this).rating('refresh', 
-                {disabled: true, 
-                 showClear: false, 
-                 showCaption: false, 
-                 size : "xs", 
-                 step : 0.1, 
-                 min: 0,
-                 max: 10,
-                 stars: 5,
-                 readonly: true
-                }
-            );           
-        });
-    </script>        
+<div class="container">     
     <div class="panel panel-default">
         <div class="panel-heading">
             Selected Movies
@@ -33,7 +17,9 @@
                             <div class="media-body">
                                 <h4 class="media-heading">{{movie.title}}</h4>
                                 <span>{{movie.year}}</span>
-                                <input id="input-id-{{movie._id}}" class="rating" value="{{movie.rating}}" starrating />
+                                <div class="movie-rating">
+                                    <input id="input-id-{{movie._id}}" class="rating" value="{{movie.rating}}" />
+                                    <span class="movie-rating-value">{{getFormattedtRtg(movie.rating)}}</span><span class="movie-rating-separator">/</span><span class="movie-rating-max">{{getFormattedtMaxRtg()}}</span>
                                 <p>{{movie.plot}}</p>
                             </div>
                         </div>

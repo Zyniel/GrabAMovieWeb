@@ -9,15 +9,14 @@ angular.module('MyApp')
             ext_tinies      : "-tiny.jpg",
             
             star_rating : {
-                 disabled: true, 
                  showClear: false, 
                  showCaption: false, 
                  size : "xs", 
-                 step : 0.1, 
+                 step : 0.25, 
                  min: 0,
-                 max: 10,
-                 stars: 5,
-                 readonly: true
+                 max: 5,
+                 stars: 10,
+                 readonly: false
             }
         }
 );
